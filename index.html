@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>ソシオニクス 16タイプ関係ビューア</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <title>ソシオニクス 16タイプ関係ビューア</title>
 
-<!-- OGP / Twitter Card -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://utage-jpg.github.io/socionix.utage/">
-<meta property="og:title" content="ソシオニクス 16タイプ関係ビューア">
-<meta property="og:description" content="タイプを2つ選ぶと関係名と5行解説が即表示。全256ペアを完全プリセット。スマホ対応。">
-<meta property="og:image" content="https://utage-jpg.github.io/socionix.utage/thumbnail.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ソシオニクス 16タイプ関係ビューア">
-<meta name="twitter:description" content="タイプを2つ選ぶと関係名と5行解説が即表示。全256ペアを完全プリセット。">
-<meta name="twitter:image" content="https://utage-jpg.github.io/socionix.utage/thumbnail.png">
-<!-- /OGP -->
+  <!-- OGP / Twitter Card（キャッシュ更新用に ?v=2 を付与） -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://utage-jpg.github.io/socionix.utage/">
+  <meta property="og:title" content="ソシオニクス 16タイプ関係ビューア">
+  <meta property="og:description" content="タイプを2つ選ぶと関係名と5行解説が即表示。全256ペアを完全プリセット。スマホ対応。">
+  <meta property="og:image" content="https://utage-jpg.github.io/socionix.utage/thumbnail.png?v=2">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ソシオニクス 16タイプ関係ビューア">
+  <meta name="twitter:description" content="タイプを2つ選ぶと関係名と5行解説が即表示。全256ペアを完全プリセット。">
+  <meta name="twitter:image" content="https://utage-jpg.github.io/socionix.utage/thumbnail.png?v=2">
+  <!-- /OGP -->
 
-<meta name="theme-color" content="#0ea5e9" />
-<style>
-:root{
-  --bg:#ffffff; --panel:#f8fafc; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --hi:#0ea5e9;
-  --alpha:#e7f5ff; --beta:#ffe7ef; --gamma:#fff3d6; --delta:#eaf7ea;
-  --val:#e7f2ff;   /* 価値=水色 */
-  --noval:#ffffff; /* 非価値=白  */
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
-.wrap{max-width:1200px;margin:0 auto;padding:12px;display:grid;gap:12px}
-h1{font-size:18px;margin:8px 0}
-.card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 18px rgba(2,6,23,.04)}
-.hd{padding:10px 12px;border-bottom:1px solid var(--line);font-weight:800;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.body{padding:12px}
-.small{font-size:12px;color:var(--muted)}
-/* タイプ選択（色変更前のUI配置） */
-.types{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-@media(min-width:640px){ .types{grid-template-columns:repeat(4,1fr)} }
-.btn{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:800;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;gap:6px;min-height:48px;touch-action:manipulation}
-.btn .q{font-size:12px;color:#334155;opacity:.9}
-.btn:active{transform:scale(.98)}
-.btn.sel{outline:2px solid rgba(253,224,71,.85);background:#fffbeb;border-color:#facc15;box-shadow:0 0 0 6px rgba(253,224,71,.25)}
-.qalpha{background:var(--alpha)} .qbeta{background:var(--beta)} .qgamma{background:var(--gamma)} .qdelta{background:var(--delta)}
-/* バッジ */
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-.badge{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#f8fafc;font-size:12px}
-.badge.link{cursor:pointer;color:#0b74c7;border-color:#cfe8ff;background:#f0f7ff}
-/* 8ブロック（1→2, 4←3, 6←5, 7→8） */
-.flow{display:grid;gap:10px}
-.flowrow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
-.block{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;position:relative;min-height:96px}
-.block .t{display:flex;justify-content:space-between;align-items:center;font-weight:900}
-.block .f{font-size:28px;letter-spacing:.6px}
-.block .d{font-size:12px;color:#0b74c7;text-decoration:underline;cursor:pointer}
-.block .tag{position:absolute;right:10px;bottom:8px;font-size:11px;color:#334155;padding:3px 6px;border-radius:999px;border:1px solid var(--line);background:#f8fafc;cursor:pointer}
-.block.v{background:var(--val)} .block.nv{background:var(--noval)}
-.arrow{font-weight:900;color:#94a3b8}
-.colcap{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:2px}
-.info{font-size:12px;color:#0ea5e9;cursor:pointer;text-decoration:underline}
-/* 相性UI */
-.grid2{display:grid;gap:12px}
-@media(min-width:1024px){ .grid2{grid-template-columns:440px 1fr} }
-.relgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-@media(min-width:520px){ .relgrid{grid-template-columns:repeat(8,1fr)} }
-.relbtn{padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:700;cursor:pointer;min-height:44px}
-.relbtn:active{transform:scale(.98)} .relbtn.sel{outline:2px solid rgba(14,165,233,.3);background:#f0f9ff}
-.reltitle{font-weight:900;font-size:18px;margin:6px 0}
-pre{white-space:pre-wrap;line-height:1.7}
-/* ポップ */
-.pop{position:absolute;z-index:40;min-width:240px;max-width:360px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px rgba(2,6,23,.18);padding:10px}
-.pop .ttl{font-weight:900;margin-bottom:6px}
-.pop .txt{font-size:13px;color:#334155;line-height:1.8;white-space:pre-wrap}
-.pop .close{margin-top:6px;font-size:12px;color:#64748b;cursor:pointer;text-decoration:underline}
-</style>
+  <meta name="theme-color" content="#0ea5e9" />
+  <style>
+  :root{
+    --bg:#ffffff; --panel:#f8fafc; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --alpha:#e7f5ff; --beta:#ffe7ef; --gamma:#fff3d6; --delta:#eaf7ea;
+    --val:#e7f2ff; --noval:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+  .wrap{max-width:1200px;margin:0 auto;padding:12px;display:grid;gap:12px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 18px rgba(2,6,23,.04)}
+  .hd{padding:10px 12px;border-bottom:1px solid var(--line);font-weight:800;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .body{padding:12px}
+  .small{font-size:12px;color:var(--muted)}
+  /* ▼タイプボタン（色変更前の配置・見た目） */
+  .types{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  @media(min-width:640px){ .types{grid-template-columns:repeat(4,1fr)} }
+  .btn{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:800;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;gap:6px;min-height:48px;touch-action:manipulation}
+  .btn .q{font-size:12px;color:#334155;opacity:.9}
+  .btn:active{transform:scale(.98)}
+  .btn.sel{outline:2px solid rgba(253,224,71,.85);background:#fffbeb;border-color:#facc15;box-shadow:0 0 0 6px rgba(253,224,71,.25)}
+  .qalpha{background:var(--alpha)} .qbeta{background:var(--beta)} .qgamma{background:var(--gamma)} .qdelta{background:var(--delta)}
+  /* バッジ */
+  .badges{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .badge{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#f8fafc;font-size:12px}
+  .badge.link{cursor:pointer;color:#0b74c7;border-color:#cfe8ff;background:#f0f7ff}
+  /* 8ブロック（1→2, 4←3, 6←5, 7→8） */
+  .flow{display:grid;gap:10px}
+  .flowrow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+  .block{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;position:relative;min-height:96px}
+  .block .t{display:flex;justify-content:space-between;align-items:center;font-weight:900}
+  .block .f{font-size:28px;letter-spacing:.6px}
+  .block .d{font-size:12px;color:#0b74c7;text-decoration:underline;cursor:pointer}
+  .block .tag{position:absolute;right:10px;bottom:8px;font-size:11px;color:#334155;padding:3px 6px;border-radius:999px;border:1px solid var(--line);background:#f8fafc;cursor:pointer}
+  .block.v{background:var(--val)} .block.nv{background:var(--noval)}
+  .arrow{font-weight:900;color:#94a3b8}
+  .colcap{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:2px}
+  .info{font-size:12px;color:#0ea5e9;cursor:pointer;text-decoration:underline}
+  /* 相性UI */
+  .grid2{display:grid;gap:12px}
+  @media(min-width:1024px){ .grid2{grid-template-columns:440px 1fr} }
+  .relgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  @media(min-width:520px){ .relgrid{grid-template-columns:repeat(8,1fr)} }
+  .relbtn{padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:700;cursor:pointer;min-height:44px}
+  .relbtn:active{transform:scale(.98)} .relbtn.sel{outline:2px solid rgba(14,165,233,.3);background:#f0f9ff}
+  .reltitle{font-weight:900;font-size:18px;margin:6px 0}
+  pre{white-space:pre-wrap;line-height:1.7}
+  /* ポップ */
+  .pop{position:absolute;z-index:40;min-width:240px;max-width:360px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px rgba(2,6,23,.18);padding:10px}
+  .pop .ttl{font-weight:900;margin-bottom:6px}
+  .pop .txt{font-size:13px;color:#334155;line-height:1.8;white-space:pre-wrap}
+  .pop .close{margin-top:6px;font-size:12px;color:#64748b;cursor:pointer;text-decoration:underline}
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -233,13 +231,13 @@ const ROM_EXP={
 const RM={"ILE":["同","双","活","鏡","要+","監+","協","幻","超","消","似","衝","要-","監-","共","準"],"SEI":["双","同","鏡","活","監+","要+","幻","協","消","超","衝","似","監-","要-","準","共"],"ESE":["活","鏡","同","双","共","準","要-","監-","似","衝","超","消","協","幻","要+","監+"],"LII":["鏡","活","双","同","準","共","監-","要-","衝","似","消","超","幻","協","監+","要+"],"EIE":["要-","監-","共","準","同","双","活","鏡","要+","監+","協","幻","超","消","似","衝"],"LSI":["監-","要-","準","共","双","同","鏡","活","監+","要+","幻","協","消","超","衝","似"],"SLE":["協","幻","要+","監+","活","鏡","同","双","共","準","要-","監-","似","衝","超","消"],"IEI":["幻","協","監+","要+","鏡","活","双","同","準","共","監-","要-","衝","似","消","超"],"SEE":["超","消","似","衝","要-","監-","共","準","同","双","活","鏡","要+","監+","協","幻"],"ILI":["消","超","衝","似","監-","要-","準","共","双","同","鏡","活","監+","要+","幻","協"],"LIE":["似","衝","超","消","協","幻","要+","監+","活","鏡","同","双","共","準","要-","監-"],"ESI":["衝","似","消","超","幻","協","監+","要+","鏡","活","双","同","準","共","監-","要-"],"LSE":["要+","監+","協","幻","超","消","似","衝","要-","監-","共","準","同","双","活","鏡"],"EII":["監+","要+","幻","協","消","超","衝","似","監-","要-","準","共","双","同","鏡","活"],"IEE":["共","準","要-","監-","似","衝","超","消","協","幻","要+","監+","活","鏡","同","双"],"SLI":["準","共","監-","要-","衝","似","消","超","幻","協","監+","要+","鏡","活","双","同"]};
 const RNAME={ "同":"同一関係","双":"双対関係","活":"活性化関係","鏡":"鏡像関係","共":"共鳴関係","準":"準双対関係","要+":"要求+（左：要求する側/恩恵を与える）","要-":"要求-（左：要求される側/恩恵を受ける）","監+":"監督+（左：監督する側）","監-":"監督-（左：監督される側）","協":"協力関係","幻":"幻影関係","超":"超自我関係","消":"消滅関係","似":"疑似同一関係","衝":"衝突関係"};
 
-/* ===== UI構築 ===== */
+/* ===== UI ===== */
 const typeList=document.getElementById('typeList');
 const relPicker=document.getElementById('relPicker');
 const pop=document.getElementById('pop'), popT=document.getElementById('popT'), popB=document.getElementById('popB');
 document.getElementById('popC').onclick=()=>hidePop();
 
-/* 左：UI順で描画 */
+/* 左：タイプボタン */
 TYPES_UI.forEach(t=>{
   const b=document.createElement('button');
   b.className='btn '+QCLS(t);
@@ -248,7 +246,7 @@ TYPES_UI.forEach(t=>{
   typeList.appendChild(b);
 });
 
-/* 相性ピッカー */
+/* 右：相性ピッカー */
 ["ILE","SEI","ESE","LII","EIE","LSI","SLE","IEI","SEE","ILI","LIE","ESI","LSE","EII","IEE","SLI"]
 .forEach(t=>{
   const rb=document.createElement('button');
