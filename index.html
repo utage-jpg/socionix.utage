@@ -3,7 +3,20 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Socionics Type Quick Lookup – ボタン配置修正</title>
+<title>ソシオニクス 16タイプ関係ビューア</title>
+
+<!-- OGP / Twitter Card -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://utage-jpg.github.io/socionix.utage/">
+<meta property="og:title" content="ソシオニクス 16タイプ関係ビューア">
+<meta property="og:description" content="タイプを2つ選ぶと関係名と5行解説が即表示。全256ペアを完全プリセット。スマホ対応。">
+<meta property="og:image" content="https://utage-jpg.github.io/socionix.utage/thumbnail.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ソシオニクス 16タイプ関係ビューア">
+<meta name="twitter:description" content="タイプを2つ選ぶと関係名と5行解説が即表示。全256ペアを完全プリセット。">
+<meta name="twitter:image" content="https://utage-jpg.github.io/socionix.utage/thumbnail.png">
+<!-- /OGP -->
+
 <meta name="theme-color" content="#0ea5e9" />
 <style>
 :root{
@@ -21,7 +34,7 @@ h1{font-size:18px;margin:8px 0}
 .hd{padding:10px 12px;border-bottom:1px solid var(--line);font-weight:800;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .body{padding:12px}
 .small{font-size:12px;color:var(--muted)}
-/* タイプ選択 */
+/* タイプ選択（色変更前のUI配置） */
 .types{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 @media(min-width:640px){ .types{grid-template-columns:repeat(4,1fr)} }
 .btn{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:800;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;gap:6px;min-height:48px;touch-action:manipulation}
@@ -29,9 +42,9 @@ h1{font-size:18px;margin:8px 0}
 .btn:active{transform:scale(.98)}
 .btn.sel{outline:2px solid rgba(253,224,71,.85);background:#fffbeb;border-color:#facc15;box-shadow:0 0 0 6px rgba(253,224,71,.25)}
 .qalpha{background:var(--alpha)} .qbeta{background:var(--beta)} .qgamma{background:var(--gamma)} .qdelta{background:var(--delta)}
-/* バッジ（タップで説明） */
+/* バッジ */
 .badges{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-.badge{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#f8fafc;font-size:12px;cursor:default}
+.badge{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#f8fafc;font-size:12px}
 .badge.link{cursor:pointer;color:#0b74c7;border-color:#cfe8ff;background:#f0f7ff}
 /* 8ブロック（1→2, 4←3, 6←5, 7→8） */
 .flow{display:grid;gap:10px}
@@ -137,10 +150,10 @@ const QUADRA={ ILE:"Alpha", SEI:"Alpha", ESE:"Alpha", LII:"Alpha",
 const QSYM={Alpha:"α",Beta:"β",Gamma:"γ",Delta:"Δ"};
 const QCLS=t=>({Alpha:"qalpha",Beta:"qbeta",Gamma:"qgamma",Delta:"qdelta"}[QUADRA[t]]||"");
 
-/* —— UI用の並び（ご指定のグリッド） —— */
+/* —— UIボタンの並び（色変更前と同じ） —— */
 const TYPES_UI=["ILE","SEI","ESE","LII","EIE","LSI","SLE","IEI","SEE","ILI","LIE","ESI","LSE","EII","IEE","SLI"];
 
-/* クアドラの説明 */
+/* クアドラ説明 */
 const QUADRA_EXP={
   Alpha:"・価値＝Ne・Ti・Fe・Si。\n・自由な発想と情報交換、フレンドリーな空気。\n・ユーモア/ゲーム性で合意を作りやすい。\n・衝突は避け、議論はオープン＆軽快に。\n・探究と学習のコミュニティ運営が得意。",
   Beta :"・価値＝Fe・Ni・Se・Ti。\n・一体感・役割分担・ドラマ性で動く。\n・モメンタムを重視し、決断が速い。\n・上下や儀礼を整え、集団で突破する。\n・祭り/舞台/キャンペーンに強い。",
@@ -148,7 +161,7 @@ const QUADRA_EXP={
   Delta:"・価値＝Si・Te・Fi・Ne。\n・穏やかな改善・生活基盤・共同体を重視。\n・職人気質で着実、過度なドラマは好まない。\n・環境整備と合意形成でじわっと伸ばす。\n・教育/福祉/ものづくりに適性。"
 };
 
-/* —— 機能配列（①〜⑧）※前回ご指定のまま —— */
+/* —— 機能配列（①〜⑧：ご指定の並び） —— */
 const F={
   LSE:["Te","Si","Fe","Ni","Fi","Ne","Ti","Se"],
   LIE:["Te","Ni","Fe","Si","Fi","Se","Ti","Ne"],
@@ -168,7 +181,7 @@ const F={
   EII:["Fi","Ne","Ti","Se","Te","Si","Fe","Ni"]
 };
 
-/* ラベル／次元／役割 */
+/* ラベル・次元 */
 const TITLES=["主導①","創造②","規範③","脆弱④","暗示⑤","動員⑥","無視⑦","証明⑧"];
 const DIMTAG_JP=["4次元","3次元","2次元","1次元","1次元","2次元","3次元","4次元"];
 const DIMDESC={
@@ -226,7 +239,7 @@ const relPicker=document.getElementById('relPicker');
 const pop=document.getElementById('pop'), popT=document.getElementById('popT'), popB=document.getElementById('popB');
 document.getElementById('popC').onclick=()=>hidePop();
 
-/* 左側ボタンは UI 用の順序で生成（情報配列は F を参照） */
+/* 左：UI順で描画 */
 TYPES_UI.forEach(t=>{
   const b=document.createElement('button');
   b.className='btn '+QCLS(t);
@@ -235,7 +248,7 @@ TYPES_UI.forEach(t=>{
   typeList.appendChild(b);
 });
 
-/* 相性ピッカーは従来通り（標準順で見やすく） */
+/* 相性ピッカー */
 ["ILE","SEI","ESE","LII","EIE","LSI","SLE","IEI","SEE","ILI","LIE","ESI","LSE","EII","IEE","SLI"]
 .forEach(t=>{
   const rb=document.createElement('button');
@@ -268,7 +281,7 @@ function addBadge(holder, text, onClick){
   holder.appendChild(el);
 }
 
-/* 8ブロック描画（価値=水色/非価値=白、次元=「○次元」） */
+/* 8ブロック描画（価値=水色/非価値=白） */
 function renderBlocks(t){
   const f=F[t];
   const ids=["b1","b2","b4","b3","b6","b5","b7","b8"], idx=[0,1,3,2,5,4,6,7];
@@ -337,6 +350,7 @@ document.getElementById('clear').addEventListener('pointerup',e=>{ e.preventDefa
 
 /* ポップ */
 function showPop(anchor, title, body){
+  const pop=document.getElementById('pop'), popT=document.getElementById('popT'), popB=document.getElementById('popB');
   popT.textContent=title; popB.textContent=body; pop.style.display='block';
   const r=anchor.getBoundingClientRect(); const pw=pop.offsetWidth||300, ph=pop.offsetHeight||180;
   let x=scrollX+r.left, y=scrollY+r.bottom+8;
@@ -344,11 +358,11 @@ function showPop(anchor, title, body){
   if(y+ph>scrollY+innerHeight-12) y=scrollY+r.top-ph-8;
   pop.style.left=`${x}px`; pop.style.top=`${y}px`;
 }
-function hidePop(){ pop.style.display='none'; }
+function hidePop(){ document.getElementById('pop').style.display='none'; }
 document.getElementById('popC').onclick=hidePop;
-document.addEventListener('pointerdown',e=>{ if(pop.style.display==='none')return; if(!pop.contains(e.target) && !e.target.closest('.info,.badge,.block,.d,.tag')) hidePop(); }, {passive:true});
+document.addEventListener('pointerdown',e=>{ const p=document.getElementById('pop'); if(p.style.display==='none')return; if(!p.contains(e.target) && !e.target.closest('.info,.badge,.block,.d,.tag')) hidePop(); }, {passive:true});
 
-/* 初期：UI 並びの先頭（ILE）を選択 */
+/* 初期：最初のタイプを選択（ILE） */
 (function init(){ const first=document.querySelector('#typeList .btn'); if(first) first.dispatchEvent(new PointerEvent('pointerup')); })();
 </script>
 </body>
